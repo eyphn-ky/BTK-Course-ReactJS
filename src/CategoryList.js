@@ -23,7 +23,7 @@ getCategories =()=>{
   {
     this.state.categories.map(category=>
       <ListGroupItem onClick={()=>this.props.changeCategory(category)} key={category.id}> 
-      {category.categoryName}
+      {category.categoryName}   
       </ListGroupItem>//key value şeklinde olmak zorunda
     )
   }
