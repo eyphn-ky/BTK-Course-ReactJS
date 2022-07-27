@@ -6,7 +6,10 @@ import { Row, Col, Container } from "reactstrap";
 import React, { Component } from "react";
 
 export default class App extends Component {
-  changeCategory=(category)=>{this.setState({currentCategory:category.categoryName})}
+  changeCategory=(category)=>{
+    this.setState({currentCategory:category.categoryName})
+    this.getProducts(category.id); //kategori komponentinde zaten tetikleniyor dolayısıyla tetikledikten sonra ürünleride getir sana zahmet
+  }
   state={
     currentCategory:"",
     products:[]
@@ -14,8 +17,11 @@ export default class App extends Component {
   componentDidMount(){
     this.getProducts();
   }
-  getProducts =()=>{
-    fetch("http://localhost:3000/products")//fetch => javascriptten gelir promise döner 
+  getProducts =(categoryId)=>{
+    let url = "http://localhost:3000/products";
+    categoryId?url+="?categoryId="+categoryId:url+="";  //seoUrl is defined ise if'in içine koyunca bu anlama gelir
+
+    fetch(url)//fetch => javascriptten gelir promise döner 
     .then(response=>response.json())//apiden geleni jsona çevirdik
     .then(data=>this.setState({products:data}));
   };
