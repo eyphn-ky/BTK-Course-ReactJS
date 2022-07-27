@@ -3,11 +3,18 @@ import { ListGroup,ListGroupItem } from 'reactstrap'
 export default class CategoryList extends Component {
 
     state={
-      categories:[
-        {categoryId:1, categoryName:"Beverages"},
-        {categoryId:2, categoryName:"Condiments"},
-      ]
+      categories:[]
     };
+componentDidMount(){//reactta ilk componentler yüklenir daha sonra render fonksiyonları çalışır. Render'lar çalıştırılmadan hemen önce çalışacak fonksiyonları çalıştırmak için ComponentDidMount kullanılır
+  this.getCategories();
+}
+
+getCategories =()=>{
+  fetch("http://localhost:3000/categories")//fetch => javascriptten gelir promise döner 
+  .then(response=>response.json())//apiden geleni jsona çevirdik
+  .then(data=>this.setState({categories:data}));
+}
+/*Bilgi : .map is not a function hatası map fonksiyonunun parametre olarak array almadığı zamanlarda ortaya çıkar gönderilen değeri incele*/
   render() {
     return (
       <div>
@@ -15,7 +22,7 @@ export default class CategoryList extends Component {
 <ListGroup>
   {
     this.state.categories.map(category=>
-      <ListGroupItem onClick={()=>this.props.changeCategory(category)} key={category.categoryId}> 
+      <ListGroupItem onClick={()=>this.props.changeCategory(category)} key={category.id}> 
       {category.categoryName}
       </ListGroupItem>//key value şeklinde olmak zorunda
     )
