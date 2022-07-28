@@ -12,7 +12,8 @@ export default class App extends Component {
   }
   state={
     currentCategory:"",
-    products:[]
+    products:[],
+    cart:[]
   };
   componentDidMount(){
     this.getProducts();
@@ -25,20 +26,29 @@ export default class App extends Component {
     .then(response=>response.json())//apiden geleni jsona çevirdik
     .then(data=>this.setState({products:data}));
   };
+  addToCart=(product)=>{
+    let newCart = this.state.cart;
+    var addedItem = newCart.find(c=>c.product.id===product.id);
+    addedItem?addedItem.quantity+=1:newCart.push({product:product,quantity:1});
+    this.setState({cart:newCart});
+
+  }
   render() {//fonksiyon komponent kullansaydık tek fonksiyon bu olduğundan başka fonksiyon yazamazdık. Bu yüzden class componente çevirdik App'i
     let categoryInfo = { title: "Category List" };
     let productInfo = { title: "Product List" };
     return (
       <Container>
-        <Row>
-          <Navi />
-        </Row>
+          <Navi cart={this.state.cart}/>
         <Row>
           <Col xs="3">
             <CategoryList currentCategory={this.state.currentCategory} changeCategory={this.changeCategory} info={categoryInfo} />
           </Col>
           <Col xs="9">
-            <ProductList products={this.state.products} currentCategory={this.state.currentCategory} info={productInfo} />
+            <ProductList 
+            addToCart={this.addToCart} 
+            products={this.state.products} 
+            currentCategory={this.state.currentCategory} 
+            info={productInfo} />
           </Col>
         </Row>
       </Container>

@@ -20,9 +20,9 @@ getCategories =()=>{
       <div>
         <h3>{this.props.info.title}</h3>
 <ListGroup>
-  {
+  {//active = render aşamasında currentcategory elimdeki listedeki categorilerden hangisi ile uyuşursa active yap
     this.state.categories.map(category=>
-      <ListGroupItem onClick={()=>this.props.changeCategory(category)} key={category.id}> 
+      <ListGroupItem active={category.categoryName===this.props.currentCategory?true:false} onClick={()=>this.props.changeCategory(category)} key={category.id}> 
       {category.categoryName}   
       </ListGroupItem>//key value şeklinde olmak zorunda
     )
