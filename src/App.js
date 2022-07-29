@@ -4,6 +4,7 @@ import Navi from "./Navi";
 import ProductList from "./ProductList";
 import { Row, Col, Container } from "reactstrap";
 import React, { Component } from "react";
+import alertify from "alertifyjs";
 
 export default class App extends Component {
   changeCategory=(category)=>{
@@ -31,11 +32,13 @@ export default class App extends Component {
     var addedItem = newCart.find(c=>c.product.id===product.id);
     addedItem?addedItem.quantity+=1:newCart.push({product:product,quantity:1});
     this.setState({cart:newCart});
-
+  alertify.success(product.productName + " added!");
   }
   removeFromCart=(product)=>{
 let newCart=this.state.cart.filter(c=>c.product.id!==product.id)
 this.setState({cart:newCart});
+alertify.warning(product.productName + " removed!");
+
   }
   render() {//fonksiyon komponent kullansaydık tek fonksiyon bu olduğundan başka fonksiyon yazamazdık. Bu yüzden class componente çevirdik App'i
     let categoryInfo = { title: "Category List" };
