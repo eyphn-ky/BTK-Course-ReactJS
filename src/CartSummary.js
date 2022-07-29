@@ -13,11 +13,12 @@ export default class CartSummary extends Component {
     return (
       <UncontrolledDropdown nav inNavbar>
         <DropdownToggle nav caret>
-          Your Cart - {this.props.cart.length} different product
+          Your Cart - {this.props.cart.length} product
         </DropdownToggle>
         <DropdownMenu right>
           {this.props.cart.map((cartItem) => (
             <DropdownItem key={cartItem.product.id}>
+              <Badge className="bg-danger color-white" onClick={()=>this.props.removeFromCart(cartItem.product)}> X </Badge>
               {cartItem.product.productName}
               <Badge className="bg-success text-white">
                 {cartItem.quantity}
