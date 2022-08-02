@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -32,8 +33,16 @@ export default class Navi extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-
-
+              <NavItem>
+                <NavLink>
+                <Link to="form">Form Test</Link>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink>
+                <Link to="rich-form">Zengin Form Test</Link>
+                </NavLink>
+              </NavItem>
               <NavItem>
                 <NavLink href="https://github.com/reactstrap/reactstrap">
                   GitHub

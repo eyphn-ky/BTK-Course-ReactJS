@@ -9,6 +9,8 @@ import alertify from "alertifyjs";
 import { Routes, Route, Link } from "react-router-dom";
 import { NotFound } from "./NotFound";
 import { CartList } from "./CartList";
+import FormDemo from "./FormDemo";
+import RichForm from "./RichForm";
 
 export default class App extends Component {
   changeCategory = (category) => {
@@ -94,12 +96,9 @@ export default class App extends Component {
                   />
                 }
               />
-              <Route
-                path="*"
-                element={
-                  <NotFound/>
-                }
-              />
+              <Route path="/form" element={<FormDemo />} />
+              <Route path="/rich-form" element={<RichForm />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Col>
         </Row>
